@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Güleryüz Ambalaj - Ürünler</title>
+    <style>
+        /* Stil tanımları buraya gelecek */
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            position: relative;
+        }
+        /* burya gelicek olan css kodu action butonlar için olucak bu butonlar sepeti onayla ve sepeti temizle butonu olucak */
+
+        .close-button{
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .product {
+            width: calc(30% - 20px);
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .product img {
+            width: 100%;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .product-info {
+            text-align: center;
+        }
+
+        .buy-now {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .buy-now button {
+            padding: 5px 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .cart-icon {
+            width: 30px;
+            height: 30px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .cart-icon img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .cart-items {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            position: absolute;
+            top: 70px;
+            right: 20px;
+            padding: 20px;
+            display: none;
+            z-index: 9999;
+        }
+
+        .cart-items h2 {
+            margin-bottom: 10px;
+        }
+
+        .cart-items ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .cart-items li {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-items {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .total-price {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+
+        .total-price span {
+            font-weight: bold;
+        }
+
+        .product input[type="number"] {
+            width: 50px;
+            text-align: center;
+        }
+
+        .cart-items button {
+            margin: 5px;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .cart-items button:hover {
+            background-color: #45a049;
+        }
+
+        .cart-items input[type="number"] {
+            width: 50px;
+            text-align: center;
+        }
+
+        .cart-items button.action-button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            padding: 8px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 0 5px;
+        }
+
+        .cart-items button.action-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Güleryüz Ambalaj</h1>
+        <a href="web.html" style="position: absolute; top: 20px; left: 20px; color: #fff; text-decoration: none;">Anasayfa</a>
+        <div class="cart-icon" onclick="toggleCart()">
+            <img src="cart-icon.png" alt="Sepet İkonu">
+        </div>
+        <div class="total-price" id="totalPrice">
+            Toplam: <span>0 TL</span>
+        </div>
+    </div>
+    <div class="container">
+        <div class="product-container">
+            <!-- Ürünler -->
+            <div class="product">
+                <img src="urun1.jpg" alt="Ürün 1">
+                <div class="product-info">
+                    <h2>Ürün Adı 1</h2>
+                    <p>Fiyat: 25 TL</p>
+                    <p>Ürün Kodu: ABC123</p>
+                </div>
+                <div class="buy-now">
+                    <button onclick="addToCart('Ürün Adı 1', 25)">Sepete Ekle</button>
+                </div>
+            </div>
+            <!-- Diğer ürünler buraya eklenecek -->
+            <div class="product">
+                <img src="urun2.jpg" alt="Ürün 2">
+                <div class="product-info">
+                    <h2>Ürün Adı 2</h2>
+                    <p>Fiyat: 30 TL</p>
+                    <p>Ürün Kodu: DEF456</p>
+                </div>
+                <div class="buy-now">
+                    <button onclick="addToCart('Ürün Adı 2', 30)">Sepete Ekle</button>
+                </div>
+            </div>
+            <div class="product">
+                <img src="urun3.jpg" alt="Ürün 3">
+                <div class="product-info">
+                    <h2>Ürün Adı 3</h2>
+                    <p>Fiyat: 35 TL</p>
+                    <p>Ürün Kodu: GHI789</p>
+                </div>
+                <div class="buy-now">
+                    <button onclick="addToCart('Ürün Adı 3', 35)">Sepete Ekle</button>
+                </div>
+            </div>
+            <div class="product">
+                <img src="urun4.jpg" alt="Ürün 4">
+                <div class="product-info">
+                    <h2>Ürün Adı 4</h2>
+                    <p>Fiyat: 40 TL</p>
+                    <p>Ürün Kodu: JKL012</p>
+                </div>
+                <div class="buy-now">
+                    <button onclick="addToCart('Ürün Adı 4', 40)">Sepete Ekle</button>
+                </div>
+            </div>
+            <div class="product">
+                <img src="urun5.jpg" alt="Ürün 5">
+                <div class="product-info">
+                    <h2>Ürün Adı 5</h2>
+                    <p>Fiyat: 45 TL</p>
+                    <p>Ürün Kodu: MNO345</p>
+                </div>
+                <div class="buy-now">
+                    <button onclick="addToCart('Ürün Adı 5', 45)">Sepete Ekle</button>
+                </div>
+            </div>
+            <div class="product">
+                <img src="urun6.jpg" alt="Ürün 6">
+                <div class="product-info">
+                    <h2>Ürün Adı 6</h2>
+                    <p>Fiyat: 50 TL</p>
+                    <p>Ürün Kodu: PQR678</p>
+                </div>
+                <div class="buy-now">
+                    <button onclick="addToCart('Ürün Adı 6', 50)">Sepete Ekle</button>
+                </div>
+            </div>
+            <div class="product">
+                <img src="urun7.jpg" alt="Ürün 7">
+                <div class="product-info">
+                    <h2>Ürün Adı 7</h2>
+                    <p>Fiyat: 55 TL</p>
+                    <p>Ürün Kodu: STU901</p>
+                </div>
+                <div class="buy-now">
+                    <button onclick="addToCart('Ürün Adı 7', 55)">Sepete Ekle</button>
+                </div>
+            </div>
+            <div class="product">
+                <img src="urun8.jpg" alt="Ürün 8">
+                <div class="product-info">
+                    <h2>Ürün Adı 8</h2>
+                    <p>Fiyat: 60 TL</p>
+                    <p>Ürün Kodu: VWX123</p>
+                </div>
+                <div class="buy-now">
+                    <button onclick="addToCart('Ürün Adı 8', 60)">Sepete Ekle</button>
+                </div>
+            </div>
+            <div class="product">
+                <img src="urun9.jpg" alt="Ürün 9">
+                <div class="product-info">
+                    <h2>Ürün Adı 9</h2>
+                    <p>Fiyat: 65 TL</p>
+                    <p>Ürün Kodu: YZA456</p>
+                </div>
+                <div class="buy-now">
+                    <button onclick="addToCart('Ürün Adı 9', 65)">Sepete Ekle</button>
+                </div>
+            </div>
+            <div class="product">
+                <img src="urun10.jpg" alt="Ürün 10">
+                <div class="product-info">
+                    <h2>Ürün Adı 10</h2>
+                    <p>Fiyat: 70 TL</p>
+                    <p>Ürün Kodu: 123ABC</p>
+                </div>
+                <div class="buy-now">
+                    <button onclick="addToCart('Ürün Adı 10', 70)">Sepete Ekle</button>
+                </div>
+            </div>
+            <div class="product">
+                <img src="urun11.jpg" alt="Ürün 11">
+                <div class="product-info">
+                    <h2>Ürün Adı 11</h2>
+                    <p>Fiyat: 75 TL</p>
+                    <p>Ürün Kodu: 456DEF</p>
+                </div>
+                <div class="buy-now">
+                    <button onclick="addToCart('Ürün Adı 11', 75)">Sepete Ekle</button>
+                </div>
+            </div>
+            <div class="product">
+                <img src="urun12.jpg" alt="Ürün 12">
+                <div class="product-info">
+                    <h2>Ürün Adı 12</h2>
+                    <p>Fiyat: 80 TL</p>
+                    <p>Ürün Kodu: 789GHI</p>
+                </div>
+                <div class="buy-now">
+                    <button onclick="addToCart('Ürün Adı 12', 80)">Sepete Ekle</button>
+                </div>
+            </div>
+            <div class="product">
+                <img src="urun13.jpg" alt="Ürün 13">
+                <div class="product-info">
+                    <h2>Ürün Adı 13</h2>
+                    <p>Fiyat: 85 TL</p>
+                    <p>Ürün Kodu: ABC789</p>
+                </div>
+                <div class="buy-now">
+                    <button onclick="addToCart('Ürün Adı 13', 85)">Sepete Ekle</button>
+                </div>
+            </div>
+            <div class="product">
+                <img src="urun14.jpg" alt="Ürün 14">
+                <div class="product-info">
+                    <h2>Ürün Adı 14</h2>
+                    <p>Fiyat: 90 TL</p>
+                    <p>Ürün Kodu: DEF012</p>
+                </div>
+                <div class="buy-now">
+                    <button onclick="addToCart('Ürün Adı 14', 90)">Sepete Ekle</button>
+                </div>
+            </div>
+            <div class="product">
+                <img src="urun15.jpg" alt="Ürün 15">
+                <div class="product-info">
+                    <h2>Ürün Adı 15</h2>
+                    <p>Fiyat: 95 TL</p>
+                    <p>Ürün Kodu: GHI345</p>
+                </div>
+                <div class="buy-now">
+                    <button onclick="addToCart('Ürün Adı 15', 95)">Sepete Ekle</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cart-items" id="cartItems">
+        <h2>Sepet</h2>
+        <ul id="cartList">
+            <!-- Sepet içeriği buraya eklenecek -->
+        </ul>
+        <div class="total-price" id="totalPrice">
+            Toplam: <span>0 TL</span>
+        </div>
+        
+        <!--buton düzenleme işi burda yapılıyo tabi her buton değil sadece sepet içindeki butonlar burdan yapılıyo -->
+        
+        <button class="close-button" onclick="toggleCart()">Kapat</button>
+        <button class="action-button" onclick="clearCart()">Sepeti Boşalt</button>
+        <a href="/checkout"><button class="action-button">Ödeme Yap</button></a>
+            
+    
+    </div>
+
+    <script>
+                let cartItems = []; // Sepet içeriği
+
+function clearCart() {
+    // Sepetteki tüm öğeleri kaldırma işlemizx
+    cartItems = [];
+    let list = document.querySelectorAll('#cartList > li');
+    list.forEach(item => item.remove());
+}
+
+
+
+        // JavaScript fonksiyonları buraya gelecek
+        
+        var totalPrice =1    ; // Toplam fiyat
+
+        function addToCart(productName, price) {
+            var quantity = 1;
+            var existingItem = cartItems.find(item => item.name === productName);
+            if (existingItem) {
+                existingItem.quantity += quantity;
+            } else {
+                cartItems.push({
+                    name: productName,
+                    price: price,
+                    quantity: quantity
+                });
+            }
+            updateCartUI();
+        }
+
+        function removeFromCart(index) {
+            cartItems.splice(index, 1);
+            updateCartUI();
+        }
+
+        function increaseQuantity(index) {
+            cartItems[index].quantity++;
+            updateCartUI();
+        }
+
+        function decreaseQuantity(index) {
+            if (cartItems[index].quantity > 1) {
+                cartItems[index].quantity--;
+                updateCartUI();
+            }
+        }
+
+        function updateCartUI() {
+            var cartList = document.getElementById('cartList');
+            cartList.innerHTML = '';
+            totalPrice = 0;
+       
+
+
+            
+            cartItems.forEach((item, index) => {
+                var li = document.createElement('li');
+                li.innerHTML = `
+                    <span>${item.name} x${item.quantity} - ${item.price * item.quantity} TL</span>
+                    <button onclick="removeFromCart(${index})">-</button>
+                    <input type="number" value="${item.quantity}" min="1" max="12" onchange="updateQuantity(${index}, this.value)">
+                    <button onclick="increaseQuantity(${index})">+</button>
+                `;
+                cartList.appendChild(li);
+                totalPrice += item.price * item.quantity;
+            });
+            document.getElementById('totalPrice').innerHTML = `Toplam: <span>${totalPrice} TL</span>`;
+            
+            /* market içeriğini düzenelyen kod yapsıı burası bunları untuma */
+            if (cartItems.length > 0) {
+                document.querySelectorAll('.total-price').forEach(element => {
+                    element.style.display = 'block';
+                });
+            } else {
+                document.querySelectorAll('.total-price').forEach(element => {
+                    element.style.display = 'none';
+                });
+            }
+        }
+
+        function updateQuantity(index, quantity) {
+            cartItems[index].quantity = parseInt(quantity);
+            updateCartUI();
+        }
+
+        /* burdaki kodalr menu içerüğini düenliyor ve çalışma presibiini açıklkıyo kolay bir js */
+        function toggleCart() {
+            var cartItemsDiv = document.getElementById('cartItems');
+            if (cartItemsDiv.style.display === 'none' || cartItemsDiv.style.display === '') {
+                cartItemsDiv.style.display = 'block';
+            } else {
+                cartItemsDiv.style.display = 'none';
+            }
+        }
+
+        function calculateTotal() {
+            var totalPrice = 0;
+            cartItems.forEach(item => {
+                totalPrice += item.price * item.quantity;
+            });
+            alert('Toplam tutar: ' + totalPrice + ' TL');
+        }
+    </script>
+
+            
+
+
+
+
+
+</body>
+
+
+
+
+
+</html>

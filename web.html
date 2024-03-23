@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Güleryüz Ambalaj</title>
+    <style>
+        /* Genel stiller */
+        img {
+            aspect-ratio: 3 / 2;
+            display: flex;
+            justify-content: center;
+            align-items: center
+        }
+
+        body {
+
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            /* Arka plan deseni */
+            background-image: url('arka_plan_deseni.png');
+            /* Arka plan deseninin dosya yolunu belirtin */
+            background-size: cover;
+            /* Desenin ekran boyutuna sığacak şekilde boyutunu ayarlar */
+            background-repeat: no-repeat;
+            /* Desenin tekrarlanmasını engeller */
+            background-attachment: fixed;
+            /* Desenin sabit kalmasını sağlar */
+            opacity: 0.9;
+            /* Arka planın opaklığını ayarlar */
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+            position: relative;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        nav ul li a:hover {
+            color: #ccc;
+        }
+
+        nav ul ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #333;
+            padding: 10px;
+            width: 200px;
+            z-index: 1;
+        }
+
+        nav ul li:hover>ul {
+            display: block;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Ana içerik stilleri */
+        main {
+            padding: 20px;
+        }
+
+        /* Showroom stilleri */
+        .showroom-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .showroom-slides {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .showroom-slide {
+            min-width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .showroom-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .showroom-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .showroom-arrow-left {
+            left: 0;
+        }
+
+        .showroom-arrow-right {
+            right: 0;
+        }
+
+        /* Ürün arama stilleri */
+        .search-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            margin-right: 8px;
+        }
+
+        .search-button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            background-color: #333;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        /* Hakkımızda ve İletişim paneli stilleri */
+        .info-panel {
+            max-width: 300px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            z-index: 2;
+            cursor: move;
+        }
+
+        .info-panel h2 {
+            text-align: center;
+        }
+
+        .info-text {
+            margin-bottom: 10px;
+        }
+
+        .info-panel button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Güleryüz Ambalaj</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Anasayfa</a></li>
+                <li>
+                    <a href="#" onclick="toggleHakkimizda()">Hakkımızda</a>
+                </li>
+                <li><a href="#" onclick="showProductPage()">Ürünler</a></li>
+                <li><a href="#" onclick="toggleIletisim()">İletişim</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Ana içerik buraya gelebilir -->
+
+        <!-- Ürün arama -->
+        <div class="search-container">
+            <input type="text" class="search-input" id="searchInput" placeholder="Ürün ara...">
+            <button class="search-button" onclick="searchProducts()">Ara</button>
+        </div>
+
+        <!-- Showroom -->
+        <div class="showroom-container">
+            <img>
+            <div class="showroom-slide"><img src="fotoğraf1.jpeg" alt="Fotoğraf 1"></div>
+            <div class="showroom-slide"><img src="fotoğraf2.jpeg" alt="Fotoğraf 2"></div>
+            <div class="showroom-slide"><img src="fotoğraf3.jpeg" alt="Fotoğraf 3"></div>
+            <div class="showroom-slide"><img src="fotoğraf4.jpeg" alt="Fotoğraf 4"></div>
+            <div class="showroom-slide"><img src="fotoğraf5.jpeg" alt="Fotoğraf 5"></div>
+            <div class="showroom-arrow showroom-arrow-left" onclick="prevSlide()">&#10094;</div>
+            <div class="showroom-arrow showroom-arrow-right" onclick="nextSlide()">&#10095;</div>
+        </div>
+
+        <div class="info-panel" id="hakkimizdaPanel" style="display: none; top: 20px; left: 20px;">
+            <button onclick="toggleHakkimizda()" class="close-button">&#10006;</button>
+            <h2>Hakkımızda</h2>
+            <p class="info-text">Güleryüz Ambalaj, müşteri memnuniyetini ön planda tutan bir yaklaşımla ambalaj sektöründe faaliyet göstermektedir.</p>
+            <p class="info-text">Firmamız, kaliteli ürünleri ve güler yüzlü hizmeti ile sektörde öncü konumdadır.</p>
+            <p class="info-text">Bizimle çalışan her müşteri, ambalaj ihtiyaçlarına uygun çözümler bulmakta ve güvenilir bir iş ortağı ile çalışmanın avantajını yaşamaktadır.</p>
+        </div>
+
+        <!-- İletişim paneli -->
+        <div class="info-panel" id="iletisimPanel" style="display: none; top: 20px; right: 20px;">
+            <button onclick="toggleIletisim()" class="close-button">&#10006;</button>
+            <h2>İletişim Bilgileri</h2>
+            <div class="info-text">Telefon: 0551 043 0785</div>
+            <div class="info-text">Telefon: 0534 854 5929</div>
+            <div class="info-text">E-posta: 3734soner@gmail.com</div>
+            <div class="info-text">E-posta: 3734talha@gmail.com</div>
+        </div>
+
+        <!-- Ürünlerin gösterildiği bölüm -->
+        <div id="productPage" style="display: none;">
+            <!-- Ürünler burada listelenecek -->
+            <h2>Ürünler</h2>
+            <p>Burada ürünlerin listelendiği bir bölüm olacak.</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Güleryüz Ambalaj</p>
+    </footer>
+
+    <script>
+        // Ürün arama fonksiyonu
+        function searchProducts() {
+            var searchTerm = document.getElementById("searchInput").value;
+            // Ürün arama işlemleri yapılacak, örneğin:
+            // window.location.href = "urun_arama.php?search=" + searchTerm;
+            // Burada örnek bir PHP dosyasına yönlendirme yapılıyor, gerçek bir arama işlemi için uygun yönlendirme yapılmalıdır.
+        }
+    </script>
+
+    </body>
+
+</html>
+<script>
+    function searchProducts() {
+    // Arama kutusundaki metni alın
+    var searchText = document.getElementById("searchInput").value.toLowerCase();
+    
+    // Ürünlerin listelendiği sayfaya yönlendirme
+    window.location.href = "urunler.html?search=" + encodeURIComponent(searchText);
+    }
+    
+    var slideIndex = 0;
+    
+    function showSlides() {
+        var i;
+        var slides = document.getElementsByClassName("showroom-slide");
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) {
+            slideIndex = 1
+        }
+        slides[slideIndex - 1].style.display = "block";
+        setTimeout(showSlides, 2000); // Geçiş süresi
+    }
+    
+    // Hakkında ve İletişim panellerini otomatik olarak açmayı engellemek için kontrol ekleyin
+    function openProductPage() {
+        var hakkimizdaPanel = document.getElementById("hakkimizdaPanel");
+        var iletisimPanel = document.getElementById("iletisimPanel");
+    
+        // Eğer hakkında veya iletişim panelleri görünürse, tekrar açmayın
+        if (hakkimizdaPanel.style.display !== "none" && iletisimPanel.style.display !== "none") {
+            toggleHakkimizda();
+            toggleIletisim();
+        }
+    
+        // Yeni bir sayfa açmak için window.open() fonksiyonunu kullanıyoruz
+        window.open("urunler.html", "_blank");
+    }
+    
+    function nextSlide() {
+        slideIndex++;
+        showSlide(slideIndex);
+    }
+    
+    function prevSlide() {
+        slideIndex--;
+        showSlide(slideIndex);
+    }
+    
+    function showSlide(n) {
+        var i;
+        var slides = document.getElementsByClassName("showroom-slide");
+        if (n > slides.length) {
+            slideIndex = 1
+        }
+        if (n < 1) {
+            slideIndex = slides.length
+        }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slides[slideIndex - 1].style.display = "block";
+    }
+    
+    function toggleIletisim() {
+        var panel = document.getElementById("iletisimPanel");
+        if (panel.style.display === "none" || panel.style.display === "") {
+            panel.style.display = "block";
+        } else {
+            panel.style.display = "none";
+        }
+    }
+    
+    function toggleHakkimizda() {
+        var panel = document.getElementById("hakkimizdaPanel");
+        if (panel.style.display === "none" || panel.style.display === "") {
+            panel.style.display = "block";
+        } else {
+            panel.style.display = "none";
+        }
+    }
+    
+    // Sürükleme fonksiyonları
+    var isDragging = false;
+    var offsetX, offsetY;
+    var infoPanel;
+    
+    document.addEventListener('mousedown', function (e) {
+        if (e.target.classList.contains('info-panel')) {
+            isDragging = true;
+            infoPanel = e.target;
+            offsetX = e.clientX - infoPanel.getBoundingClientRect().left;
+            offsetY = e.clientY - infoPanel.getBoundingClientRect().top;
+        }
+    });
+    
+    document.addEventListener('mousemove', function (e) {
+        if (isDragging) {
+            var x = e.clientX - offsetX;
+            var y = e.clientY - offsetY;
+            infoPanel.style.left = x + 'px';
+            infoPanel.style.top = y + 'px';
+        }
+    });
+    
+    document.addEventListener('mouseup', function (e) {
+        isDragging = false;
+    });
+    function showProductPage() {
+    // Yeni bir sayfa açmak yerine, aynı sekmede belirli bir sayfaya yönlendirme yapmak için window.location.href kullanabiliriz
+    window.location.href = "urunler.html";
+    }
+    
+    S
+    </script>
+    
+    </script>
+    
+    </body>
+    
+    </html>
